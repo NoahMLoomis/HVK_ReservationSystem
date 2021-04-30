@@ -1,0 +1,86 @@
+﻿@model IEnumerable<HVK_ZZTop.Models.PetReservation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Reservation</h3>
+
+<p>
+    <a asp-action="Create">Make New Reservation</a>
+</p>
+<div class="card flex-fill">
+    <div hidden class="card-header">
+        <div class="card-actions float-right">
+            <div class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <h5 class="card-title mb-0">Pets</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+            <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                Pet
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.Status)
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            @if (item.Reservation.Status != 4 && item.Reservation.Status != 5) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Pet.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reservation.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reservation.EndDate)
+                                    </td>
+                                    <td>
+                                        @((HVK_ZZTop.Models.ReservationStatus) Convert.ToInt32(item.Reservation.Status))
+                                    </td>
+                                    <td>
+                                        @if (item.Reservation.Status != 3) {
+                                            <a>@Html.ActionLink("Edit", "Edit", new { id = item.PetReservationId })</a>
+                                            <a>@Html.ActionLink("Details", "Details", new { id = item.PetReservationId })</a>
+                                        } else {
+                                            <a>@Html.ActionLink("Details", "Details", new { id = item.PetReservationId })</a>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

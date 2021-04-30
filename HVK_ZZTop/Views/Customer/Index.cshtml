@@ -1,0 +1,306 @@
+﻿@model IEnumerable<HVK_ZZTop.Models.Reservation>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject HVK_ZZTop.Models.FormattingService DisplayFormat
+
+<h3>Customer Home</h3>
+
+<p hidden>
+    <a asp-action="Create" asp-controller="Pet">Add New Pet</a>
+</p>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h5 class="card-title mb-0">Details</h5>
+            </div>
+            <div class="col-auto">
+                @Html.ActionLink("Edit", "Edit", new { ownerId = ViewBag.Customer.OwnerId }, new { @class = "btn btn-falcon-default btn-sm" })
+            </div>
+        </div>
+    </div>
+    <div class="card-body bg-light border-top">
+        <div class="row">
+            <div class="col-lg col-xxl-5">
+                <h6 class="font-weight-bold ls mb-3">Your Personal Information</h6>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">First Name:</p>
+                    </div>
+                    <div class="col"> @ViewBag.Customer.FirstName</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Last Name:</p>
+                    </div>
+                    <div class="col"> @ViewBag.Customer.LastName</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Email:</p>
+                    </div>
+                    <div class="col"><a href="@ViewBag.Customer.Email">@ViewBag.Customer.Email</a></div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Street:</p>
+                    </div>
+                    <div class="col">
+                        <p class="font-italic text-400 mb-1"> @ViewBag.Customer.Street</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-0">City:</p>
+                    </div>
+                    <div class="col">
+                        <p class="font-italic text-400 mb-0">@ViewBag.Customer.City</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-0">Province:</p>
+                    </div>
+                    <div class="col">
+                        <p class="font-italic text-400 mb-0">@ViewBag.Customer.Province</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-0">Postal Code:</p>
+                    </div>
+                    <div class="col">
+                        <p class="font-italic text-400 mb-0">@ViewBag.Customer.PostalCode</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-0">Phone:</p>
+                    </div>
+                    <div class="col">
+                        <p class="font-italic text-400 mb-0">@DisplayFormat.PhoneDisplay(ViewBag.Customer.Phone)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-0">Cell Phone:</p>
+                    </div>
+                    <div class="col">
+                        <p class="font-italic text-400 mb-0">@DisplayFormat.PhoneDisplay(ViewBag.Customer.CellPhone)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+                <h6 class="font-weight-bold ls mb-3">Emergency Contact</h6>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">First Name:</p>
+                    </div>
+                    <div class="col"> @ViewBag.Customer.EmergencyContactFirstName</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Last Name:</p>
+                    </div>
+                    <div class="col"> @ViewBag.Customer.EmergencyContactLastName</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Phone:</p>
+                    </div>
+                    <div class="col"><a href="@ViewBag.Customer.EmergencyContactPhone">@DisplayFormat.PhoneDisplay(ViewBag.Customer.EmergencyContactPhone)</a></div>
+                </div>
+                <h6 class="font-weight-bold ls mt-3">Veterinarian Contact</h6>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Name:</p>
+                    </div>
+                    <div class="col"> @ViewBag.Customer.Veterinarian.Name</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Phone:</p>
+                    </div>
+                    <div class="col"> @DisplayFormat.PhoneDisplay(ViewBag.Customer.Veterinarian.Phone)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Street:</p>
+                    </div>
+                    <div class="col">@ViewBag.Customer.Veterinarian.Street</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">City:</p>
+                    </div>
+                    <div class="col">@ViewBag.Customer.Veterinarian.City</div>
+                </div><div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Province:</p>
+                    </div>
+                    <div class="col">@ViewBag.Customer.Veterinarian.Province</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-bold mb-1">Postal Code:</p>
+                    </div>
+                    <div class="col">@DisplayFormat.PostalDisplay(ViewBag.Customer.Veterinarian.PostalCode)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <div hidden class="card-actions float-right">
+            <div hidden class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-actions float-right">
+            <a asp-action="Create" asp-controller="Pet" asp-route-ownerId="@ViewBag.Customer.OwnerId" class="btn btn-sm btn-link pr-0 fs--1">New Pet</a>
+        </div>
+        <h5 class="card-title mb-0">Pets</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+            <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Gender
+                            </th>
+                            <th>
+                                Fixed
+                            </th>
+                            <th>
+                                Breed
+                            </th>
+                            <th>
+                                Birthdate
+                            </th>
+                            <th>
+                                DogSize
+                            </th>
+                            <th>
+                                Climber
+                            </th>
+                            <th>
+                                Barker
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Pets) {
+                            <tr>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.Gender
+                                </td>
+                                <td>
+                                    @item.Fixed
+                                </td>
+                                <td>
+                                    @item.Breed
+                                </td>
+                                <td>
+                                    @item.Birthdate
+                                </td>
+                                <td>
+                                    @item.DogSize
+                                </td>
+                                <td>
+                                    @item.Climber
+                                </td>
+                                <td>
+                                    @item.Barker
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> <div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-right">
+            <div hidden class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-actions float-right">
+            <a asp-action="Create" asp-controller="Reservation" class="btn btn-sm btn-link pr-0 fs--1">New Reservation</a>
+        </div>
+        <h5 class="card-title mb-0">Reservations</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+            <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                Pet
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            @if (item.Status != 4 && item.Status != 5) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PetReservation.First().Pet.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndDate)
+                                    </td>
+                                    <td>
+                                        @((HVK_ZZTop.Models.ReservationStatus)Convert.ToInt32(item.Status))
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,133 @@
+﻿@model HVK_ZZTop.Models.Pet
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Pet Details</h3>
+
+<div class="card mb-3">
+    <div class="card-header bg-white">
+        <div class="card-actions float-right">
+            <div class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.PetId }, new { @class = "dropdown-item" })
+                    </div>
+                    <div>
+                        @Html.ActionLink("Delete", "Delete", new { id = Model.PetId }, new { @class = "dropdown-item" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <h5 class="card-title mb-0">@Model.Name</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card-body bg-light border-top">
+        <div class="row">
+            <div class="col-lg col-xxl-5 position-relative">
+                <div class="row">
+                    <h6 class="font-weight-semi-bold ls mb-3">Information</h6>
+                    <div class="col-auto ml-auto"></div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.Name)</p>
+                    </div>
+                    <div class="col"> @Html.DisplayFor(modelItem => Model.Name)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.Breed)</p>
+                    </div>
+                    <div class="col"> @Html.DisplayFor(modelItem => Model.Breed)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.DogSize)</p>
+                    </div>
+                    <div class="col">@Html.DisplayFor(modelItem => Model.DogSize)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.Gender)</p>
+                    </div>
+                    <div class="col">@Html.DisplayFor(modelItem => Model.Gender)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1">@Html.DisplayNameFor(modelItem => Model.Birthdate)</p>
+                    </div>
+                    <div class="col"> @Html.DisplayFor(modelItem => Model.Birthdate)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.Fixed)</p>
+                    </div>
+                    <div class="col">@Html.DisplayFor(modelItem => Model.Fixed)</div>
+                </div>
+                <div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.Climber)</p>
+                    </div>
+                    <div class="col">@Html.DisplayFor(modelItem => Model.Climber)</div>
+                </div><div class="row">
+                    <div class="col-5 col-sm-4">
+                        <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => Model.Barker)</p>
+                    </div>
+                    <div class="col">@Html.DisplayFor(modelItem => Model.Barker)</div>
+                </div>
+            </div>
+            <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+                <h6 class="font-weight-semi-bold ls mb-3">Vaccination</h6>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead hidden>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    ExpiryDate
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Vaccinations) {
+                                var pv = Model.PetVaccination.Where(v => v.VaccinationId == item.VaccinationId).FirstOrDefault();
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" disabled @((pv != null && pv.VaccinationChecked) ? "checked" : "" ) />
+                                    </td>
+                                    <td>
+                                        @item.Name
+                                    </td>
+                                    <td>
+                                        @if (pv != null) {
+                                            @pv.ExpiryDate?.ToString("yyyy\\/MM\\/dd");
+                                            @if (pv.ExpiryDate < DateTime.Today) {
+                                                <i class="bi bi-patch-exclamation text-warning" title="Vaccination has expired"></i>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p hidden>
+    <a asp-action="Create">Create New Pet</a>
+</p>

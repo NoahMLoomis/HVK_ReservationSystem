@@ -1,0 +1,76 @@
+﻿@model HVK_ZZTop.Models.EditReservationViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Reservation</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PetReservation.Reservation.StartDate" class="control-label"></label>
+                <input asp-for="PetReservation.Reservation.StartDate" class="form-control" />
+                <span asp-validation-for="PetReservation.Reservation.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PetReservation.Reservation.EndDate" class="control-label"></label>
+                <input asp-for="PetReservation.Reservation.EndDate" class="form-control" />
+                <span asp-validation-for="PetReservation.Reservation.EndDate" class="text-danger"></span>
+            </div>
+            <input hidden asp-for="PetReservation.Reservation.ReservationId" class="form-control" value="@Model.PetReservation.Reservation.ReservationId" />
+            <input hidden asp-for="PetReservation.PetReservationId" class="form-control" value="@Model.PetReservation.PetReservationId" />
+            <input hidden asp-for="PetReservation.PetId" class="form-control" value="@Model.PetReservation.PetId" />
+            <input hidden asp-for="PetReservation.Reservation.Status" class="form-control" value="@Model.PetReservation.Reservation.Status" />
+
+            <div class="form-group">
+
+                <label class="control-label">Services</label>
+                <div class="resServiceWrapper">
+                    <div class="form-grid">
+                        <input asp-for="Walk" type="checkbox" value="True" name="Walk" id="Walk" />
+                        <label asp-for="Walk" class="control-label">Daily Walks</label>
+                        <input asp-for="PlayTime" type="checkbox" value="True" name="PlayTime" id="PlayTime" />
+                        <label asp-for="PlayTime" class="control-label">PlayTime</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                @if (Model.PetReservation.Medication.Count() > 0) {
+                    <h4>Edit Medication</h4>
+                } else {
+                    <h4>Add Medication</h4>
+                }
+                <input hidden asp-for="Medication.MedicationId" class="form-control" value="@Model.Medication.MedicationId" />
+                <input hidden asp-for="Medication.PetReservationId" class="form-control" value="@Model.PetReservation.PetReservationId" />
+                <label asp-for="Medication.Name" class="control-label"></label>
+                <input asp-for="Medication.Name" class="form-control" />
+                <span asp-validation-for="Medication.Name" class="text-danger"></span>
+
+                <label asp-for="Medication.Dosage" class="control-label"></label>
+                <input asp-for="Medication.Dosage" class="form-control" />
+                <span asp-validation-for="Medication.Dosage" class="text-danger"></span>
+
+                <label asp-for="Medication.EndDate" class="control-label">End Date</label>
+                <input asp-for="Medication.EndDate" class="form-control" />
+                <span asp-validation-for="Medication.EndDate" class="text-danger"></span>
+
+                <label asp-for="Medication.SpecialInstruct" class="control-label">Special Instructions</label>
+                <textarea asp-for="Medication.SpecialInstruct" class="form-control"></textarea>
+                <span asp-validation-for="Medication.SpecialInstruct" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

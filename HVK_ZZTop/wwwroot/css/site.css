@@ -1,0 +1,339 @@
+﻿@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
+
+@media (min-width: 768px) {
+    html {
+    font-size: 16px;
+  }
+}
+
+/*.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}*/
+
+/* --------- Added by Shuai --------- */
+/*
+ * Sticky Footer Navbar
+ */
+main > .container {
+    padding: 60px 15px 0;
+}
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    /*box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);*/
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        top: 5rem;
+    }
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+    }
+}
+
+/*---  card  ----*/
+
+.card {
+    margin-bottom: 24px;
+    box-shadow: 0 0 0.875rem 0 rgba(41, 48, 66, 0.05);
+}
+
+.card-header {
+    border-bottom-width: 0px;
+    background-color: white;
+}
+
+.card-actions a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.card-actions svg {
+    width: 16px;
+    height: 16px;
+}
+
+.card-actions .dropdown {
+    line-height: 1.4;
+}
+
+.card-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+.card-subtitle {
+    font-weight: 400;
+}
+
+.card-table {
+    margin-bottom: 0;
+}
+
+    .card-table tr td:first-child,
+    .card-table tr th:first-child {
+        padding-left: 1.25rem;
+    }
+
+    .card-table tr td:last-child,
+    .card-table tr th:last-child {
+        padding-right: 1.25rem;
+    }
+
+.card-img,
+.card-img-bottom,
+.card-img-top {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (-ms-high-contrast: none) {
+    .card-img,
+    .card-img-bottom,
+    .card-img-top {
+        height: 100%;
+    }
+}
+
+/*--- table ---*/
+
+.card > .dataTables_wrapper .table.dataTable,
+.card > .table,
+.card > .table-responsive-lg .table,
+.card > .table-responsive-md .table,
+.card > .table-responsive-sm .table,
+.card > .table-responsive-xl .table,
+.card > .table-responsive .table {
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    margin-bottom: 0;
+}
+
+    .card > .dataTables_wrapper .table.dataTable td:first-child,
+    .card > .dataTables_wrapper .table.dataTable th:first-child,
+    .card > .table-responsive-lg .table td:first-child,
+    .card > .table-responsive-lg .table th:first-child,
+    .card > .table-responsive-md .table td:first-child,
+    .card > .table-responsive-md .table th:first-child,
+    .card > .table-responsive-sm .table td:first-child,
+    .card > .table-responsive-sm .table th:first-child,
+    .card > .table-responsive-xl .table td:first-child,
+    .card > .table-responsive-xl .table th:first-child,
+    .card > .table-responsive .table td:first-child,
+    .card > .table-responsive .table th:first-child,
+    .card > .table td:first-child,
+    .card > .table th:first-child {
+        border-left: 0;
+        padding-left: 1.25rem;
+    }
+
+    .card > .dataTables_wrapper .table.dataTable td:last-child,
+    .card > .dataTables_wrapper .table.dataTable th:last-child,
+    .card > .table-responsive-lg .table td:last-child,
+    .card > .table-responsive-lg .table th:last-child,
+    .card > .table-responsive-md .table td:last-child,
+    .card > .table-responsive-md .table th:last-child,
+    .card > .table-responsive-sm .table td:last-child,
+    .card > .table-responsive-sm .table th:last-child,
+    .card > .table-responsive-xl .table td:last-child,
+    .card > .table-responsive-xl .table th:last-child,
+    .card > .table-responsive .table td:last-child,
+    .card > .table-responsive .table th:last-child,
+    .card > .table td:last-child,
+    .card > .table th:last-child {
+        border-right: 0;
+        padding-right: 1.25rem;
+    }
+
+    .card > .dataTables_wrapper .table.dataTable tr:first-child td,
+    .card > .dataTables_wrapper .table.dataTable tr:first-child th,
+    .card > .table-responsive-lg .table tr:first-child td,
+    .card > .table-responsive-lg .table tr:first-child th,
+    .card > .table-responsive-md .table tr:first-child td,
+    .card > .table-responsive-md .table tr:first-child th,
+    .card > .table-responsive-sm .table tr:first-child td,
+    .card > .table-responsive-sm .table tr:first-child th,
+    .card > .table-responsive-xl .table tr:first-child td,
+    .card > .table-responsive-xl .table tr:first-child th,
+    .card > .table-responsive .table tr:first-child td,
+    .card > .table-responsive .table tr:first-child th,
+    .card > .table tr:first-child td,
+    .card > .table tr:first-child th {
+        border-top: 0;
+    }
+
+    .card > .dataTables_wrapper .table.dataTable tr:last-child td,
+    .card > .table-responsive-lg .table tr:last-child td,
+    .card > .table-responsive-md .table tr:last-child td,
+    .card > .table-responsive-sm .table tr:last-child td,
+    .card > .table-responsive-xl .table tr:last-child td,
+    .card > .table-responsive .table tr:last-child td,
+    .card > .table tr:last-child td {
+        border-bottom: 0;
+    }
+
+.card .card-header + .table {
+    border-top: 0;
+}
+
+.table-action a {
+    color: #6c757d;
+}
+
+    .table-action a:hover {
+        color: #212529;
+    }
+
+.table-action .feather {
+    width: 18px;
+    height: 18px;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.card > .dataTables_wrapper .table.dataTable {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.card > .dataTables_wrapper .dataTables_info {
+    padding: 1rem 1.25rem;
+}
+
+.card > .dataTables_wrapper .dataTables_paginate {
+    padding: 0.6rem 1.25rem;
+}
+.resServiceWrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+label {
+    font-weight: bold;
+}
+/*--- Erorr Page ---*/
+
+#notfound {
+    position: relative;
+    height: 100vh;
+}
+
+    #notfound .notfound {
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+.notfound {
+    max-width: 410px;
+    width: 100%;
+    text-align: center;
+}
+
+    .notfound .notfound-404 {
+        height: 280px;
+        position: relative;
+        z-index: -1;
+    }
+
+        .notfound .notfound-404 h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12rem;
+            margin: 0px;
+            font-weight: 900;
+            position: absolute;
+            left: 50%;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+            background: url('/images/error-bg.jpg') no-repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: cover;
+            background-position: center;
+        }
+
+
+    .notfound h2 {
+        font-family: 'Montserrat', sans-serif;
+        color: #000;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 0;
+    }
+
+    .notfound p {
+        font-family: 'Montserrat', sans-serif;
+        color: #000;
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+
+    .notfound a {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        text-decoration: none;
+        text-transform: uppercase;
+        background: #0046d5;
+        display: inline-block;
+        padding: 15px 30px;
+        border-radius: 40px;
+        color: #fff;
+        font-weight: 700;
+        -webkit-box-shadow: 0px 4px 15px -5px #0046d5;
+        box-shadow: 0px 4px 15px -5px #0046d5;
+    }
+
+
+@media only screen and (max-width: 767px) {
+    .notfound .notfound-404 {
+        height: 142px;
+    }
+
+        .notfound .notfound-404 h1 {
+            font-size: 112px;
+        }
+}

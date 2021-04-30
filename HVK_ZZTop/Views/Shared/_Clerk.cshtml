@@ -1,0 +1,142 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="~/css/site.css" rel="stylesheet">
+    <title>Clerk Dashboard - @ViewData["Title"] </title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <div class="navbar-brand col-md-3 col-lg-2 mr-0 px-3 text-center">
+            <a href="/Clerk">
+                <img src="~/images/logo.png" alt="" height="40" />
+            </a>
+        </div>
+        <button class="navbar-toggler position-absolute d-md-none collapsed"
+                type="button"
+                data-toggle="collapse"
+                data-target="#sidebarMenu"
+                aria-controls="sidebarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form asp-controller="Clerk" asp-action="Search" class="position-relative">
+            <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="bi bi-search"></i></div>
+                </div>
+                <input type="text" class="form-control" id="inlineFormInputGroup" name="SearchInput" placeholder="Search...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <ul class="navbar-nav px-3 ml-auto">
+            <li hidden class="nav-item text-nowrap">
+                <a class="nav-link" href="#">Sign out</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none"
+                   href="#"
+                   data-toggle="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="24"
+                         height="24"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         class="feather feather-settings align-middle">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </a>
+
+                <a class="nav-link dropdown-toggle d-none d-sm-inline-block"
+                   href="#"
+                   data-toggle="dropdown"
+                   aria-expanded="false">
+                    <img src="~/images/avatar.jpg"
+                         class="avatar rounded-circle mr-1"
+                         alt="Chris Wood"
+                         height="32" />
+                    <span class="nav-item">
+                        @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated) {
+                            @HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value
+                        }
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" asp-action="Details" asp-controller="Customer" asp-route-id="@HttpContextAccessor.HttpContext.User.Identity.Name">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="2"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             class="feather feather-user align-middle mr-1">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="pages-settings.html">Settings &amp; Privacy</a>
+                    <a class="dropdown-item" asp-action="Logout" asp-controller="Home">Sign out</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu"
+                 class="col-md-3 col-lg-2 d-md-block navbar-dark bg-dark sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+
+                    <ul class="navbar-nav pl-md-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-action="Index" asp-controller="Clerk">
+                                <span data-feather="home"></span>
+                                Clerk Home <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="List" asp-controller="Customer">
+                                <span data-feather="users"></span>
+                                Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="List" asp-controller="Pet">
+                                <span data-feather="bar-chart-2"></span>
+                                Pets
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <footer hidden>
+        ZZTop Copyright @DateTime.Now.Year
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>

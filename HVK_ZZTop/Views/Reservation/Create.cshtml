@@ -1,0 +1,82 @@
+﻿@model HVK_ZZTop.Models.PRSMR
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Pet Reservation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PetReservation.Reservation.StartDate" class="control-label"></label>
+                <input asp-for="PetReservation.Reservation.StartDate" class="form-control" />
+                <span asp-validation-for="PetReservation.Reservation.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PetReservation.Reservation.EndDate" class="control-label"></label>
+                <input asp-for="PetReservation.Reservation.EndDate" class="form-control" />
+                <span asp-validation-for="PetReservation.Reservation.EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label asp-for="PetReservation.PetId" class="control-label">Select a pet</label>
+                <div class="resServiceWrapper">
+                    @{var count = 0;}
+                    @foreach (var pet in (List<Pet>)ViewData["Pets"]) {
+                        count++;
+                        <div class="form-control">
+                            <input type="checkbox" name="Pet_@count" value="@pet.PetId" id="@pet.PetId" />
+                            <label for="@pet.PetId" class="control-label">@pet.Name</label>
+                        </div>
+
+                    }
+                </div>
+
+                <span asp-validation-for="PetReservation.PetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
+                <label class="control-label">Services</label>
+                <div class="resServiceWrapper">
+                    <div class="form-grid">
+                        <input asp-for="Walk" type="checkbox" value="True" name="Walk" id="Walk" />
+                        <label asp-for="Walk" class="control-label">Daily Walks</label>
+                        <input asp-for="PlayTime" type="checkbox" value="True" name="PlayTime" id="PlayTime" />
+                        <label asp-for="PlayTime" class="control-label">PlayTime</label>
+                    </div>
+                </div>
+                <h4>Add Medication</h4>
+                <div class="form-group">
+
+                    <label asp-for="Medication.Name" class="control-label"></label>
+                    <input asp-for="Medication.Name" class="form-control" />
+                    <span asp-validation-for="Medication.Name" class="text-danger"></span>
+
+                    <label asp-for="Medication.Dosage" class="control-label"></label>
+                    <input asp-for="Medication.Dosage" class="form-control" />
+                    <span asp-validation-for="Medication.Dosage" class="text-danger"></span>
+
+                    <label asp-for="Medication.EndDate" class="control-label"></label>
+                    <input asp-for="Medication.EndDate" class="form-control" />
+                    <span asp-validation-for="Medication.EndDate" class="text-danger"></span>
+
+                    <label asp-for="Medication.SpecialInstruct" class="control-label"></label>
+                    <textarea asp-for="Medication.SpecialInstruct" class="form-control"></textarea>
+                    <span asp-validation-for="Medication.SpecialInstruct" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+        </form>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+

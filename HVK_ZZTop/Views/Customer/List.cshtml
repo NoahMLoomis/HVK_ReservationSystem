@@ -1,0 +1,87 @@
+﻿@model IEnumerable<HVK_ZZTop.Models.Owner>
+<div class="card mb-3">
+    <div class="card-header">
+        <div hidden class="card-actions float-right">
+
+        </div>
+        <div class="card-actions float-right">
+            <a asp-action="Create" asp-controller="Customer" class="btn btn-sm btn-link pr-0 fs--1">New Customer</a>
+        </div>
+        <h5 class="card-title mb-0">Customers</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.LastName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.City)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Province)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CellPhone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Province)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CellPhone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    <div class="dropdown show">
+                                        <a href="#" data-toggle="dropdown" data-display="static">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" asp-action="Index" asp-route-id="@item.OwnerId">Home</a>
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-ownerId="@item.OwnerId">Edit</a>
+                                            <a class="dropdown-item" asp-action="Details" asp-route-id="@item.OwnerId">Details</a>
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.OwnerId">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿@model ICollection<HVK_ZZTop.Models.PetReservation>
+@inject HVK_ZZTop.Models.FormattingService DisplayFormat
+
+<div class="card mb-3">
+    <div class="card-header">
+        <div hidden class="card-actions float-right">
+        </div>
+        <div class="card-actions float-right">
+            <a hidden asp-action="Create" asp-controller="Reservation" class="btn btn-sm btn-link pr-0 fs--1">New Reservation</a>
+        </div>
+        <h5 class="card-title mb-0">Reservations</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                Owner Name
+                            </th>
+                            <th>
+                                Pet Name
+                            </th>
+                            <th>
+                                Start Date
+                            </th>
+                            <th>
+                                End Date
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    @item.Pet.Owner.FirstName @item.Pet.Owner.LastName
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pet.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.Status)
+                                </td>
+                                <td>
+                                    <div class="dropdown show">
+                                        <a href="#" data-toggle="dropdown" data-display="static">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.PetReservationId">Edit</a>
+                                            <a class="dropdown-item" asp-action="Details" asp-route-id="@item.PetReservationId">Details</a>
+                                            <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.PetReservationId">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>

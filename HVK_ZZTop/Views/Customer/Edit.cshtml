@@ -1,0 +1,203 @@
+﻿@model HVK_ZZTop.Models.Owner
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3>Edit Customer</h3>
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-right">
+            <div class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <h5 class="card-title mb-0">My Information</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+            <div class="col-sm-12">
+                <form asp-action="Edit" class="px-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div hidden class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="OwnerId" class="control-label"></label>
+                            <input asp-for="OwnerId" class="form-control" />
+                            <span asp-validation-for="OwnerId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Phone" class="control-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="CellPhone" class="control-label"></label>
+                            <input asp-for="CellPhone" class="form-control" />
+                            <span asp-validation-for="CellPhone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-For="Password" class="form-control" size="20" maxlength="50" />
+                        <p></p>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Street" class="control-label"></label>
+                        <input asp-for="Street" class="form-control" />
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="province">Province</label>
+                            <select asp-for="Province" class="custom-select d-block w-100" required>
+                                <option value="">Choose...</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select>
+                            <span asp-validation-for="Province" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="City" class="control-label"></label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label asp-for="PostalCode" class="control-label"></label>
+                            <input asp-for="PostalCode" class="form-control" />
+                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+
+                    <h4 class="mb-3">Emergency Contact</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmergencyContactFirstName" class="control-label"></label>
+                            <input asp-for="EmergencyContactFirstName" class="form-control" />
+                            <span asp-validation-for="EmergencyContactFirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmergencyContactLastName" class="control-label"></label>
+                            <input asp-for="EmergencyContactLastName" class="form-control" />
+                            <span asp-validation-for="EmergencyContactLastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmergencyContactPhone" class="control-label"></label>
+                            <input asp-for="EmergencyContactPhone" class="form-control" />
+                            <span asp-validation-for="EmergencyContactPhone" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Veterinarian Contact</h4>
+                    <div class="row">
+                        <p>Select Veterinarian</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <select class="custom-select d-block w-100" asp-for="VeterinarianId" asp-items="ViewBag.VetList">
+                                <option value="0">Select Veterinarian</option>
+                            </select>
+                            <span asp-validation-for="VeterinarianId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p>Or Add a New Veterinarian</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Name</label>
+                            <input asp-for="Veterinarian.Name" class="form-control" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Phone</label>
+                            <input asp-for="Veterinarian.Phone" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="province">Province</label>
+                            <select asp-for="Veterinarian.Province" class="custom-select d-block w-100">
+                                <option value="">Choose...</option>
+                                <option value="AB">Alberta</option>
+                                <option value="BC">British Columbia</option>
+                                <option value="MB">Manitoba</option>
+                                <option value="NB">New Brunswick</option>
+                                <option value="NL">Newfoundland and Labrador</option>
+                                <option value="NS">Nova Scotia</option>
+                                <option value="ON">Ontario</option>
+                                <option value="PE">Prince Edward Island</option>
+                                <option value="QC">Quebec</option>
+                                <option value="SK">Saskatchewan</option>
+                                <option value="NT">Northwest Territories</option>
+                                <option value="NU">Nunavut</option>
+                                <option value="YT">Yukon</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="control-label">City</label>
+                            <input asp-for="Veterinarian.City" class="form-control" />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="control-label">Postal Code</label>
+                            <input asp-for="Veterinarian.PostalCode" class="form-control" />
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div hidden>
+    <a asp-action="Index">Back to List</a>
+</div>

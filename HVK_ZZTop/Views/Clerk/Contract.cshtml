@@ -1,0 +1,159 @@
+﻿@model HVK_ZZTop.Models.PetReservation
+
+@{
+    ViewData["Title"] = "Contract";
+}
+<p><a asp-action="Index">Back to Home</a></p>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md">
+                <h5 class="mb-2 mb-md-0">Boarding Contract</h5>
+                <p>
+                    @DateTime.Now.ToString("yyyy\\/MM\\/dd")
+                </p>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button"><svg class="svg-inline--fa fa-print fa-w-16 mr-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"></path></svg><!-- <span class="fas fa-print mr-1"> </span> Font Awesome fontawesome.com -->Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Customer</h5>
+
+                <h6>@Html.DisplayFor(model => model.Pet.Owner.FirstName) @Html.DisplayFor(model => model.Pet.Owner.LastName)</h6>
+
+                <p>@Html.DisplayFor(model => model.Pet.Owner.Street), @Html.DisplayFor(model => model.Pet.Owner.City)</p>
+
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <dl>
+                    <dt>Emergency Contact</dt>
+                    <dd>
+                        <dl class="row">
+                            <dt class="col-sm-6">
+                                Name:
+                            </dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(model => model.Pet.Owner.EmergencyContactFirstName) @Html.DisplayFor(model => model.Pet.Owner.EmergencyContactLastName)</dd>
+                            <dt class="col-sm-6">
+                                Phone:
+                            </dt>
+                            <dd class="col-sm-8">@Html.DisplayFor(model => model.Pet.Owner.EmergencyContactPhone)</dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <dl class="col-md-12">
+                <dt class="col-md-12">Reservation</dt>
+                <dd class="col-md-12">
+                    <dl class="row">
+                        <dt class="col-md-2">@Html.DisplayNameFor(model => model.Reservation.StartDate)</dt>
+                        <dd class="col-md-2">@Html.DisplayFor(model => model.Reservation.StartDate)</dd>
+                        <dt class="col-md-2">@Html.DisplayNameFor(model => model.Reservation.EndDate)</dt>
+                        <dd class="col-md-2">@Html.DisplayFor(model => model.Reservation.EndDate)</dd>
+                        <dt class="col-md-2">Days</dt>
+                        <dd class="col-md-2">@Html.DisplayFor(model => (model.Reservation.EndDate - model.Reservation.StartDate).Days)</dd>
+                    </dl>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div><div class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-5 data-table">Pet</div>
+            <div class="col-md-2 data-table"></div>
+            <div class="col-md-5 data-table">Service</div>
+        </div>
+        <div class="row">
+            <table class="table col-md-5">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Pet.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Pet.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Pet.DogSize)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Pet.DogSize)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Pet.SpecialNotes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Pet.SpecialNotes)
+                    </td>
+                </tr>
+            </table>
+            <div class="col-md-2"></div>
+            <table class="table col-md-5 thead-light">
+                <thead>
+                    <tr>
+                        <th>
+                            Service Name
+                        </th>
+                        <th>
+                            Daily Rate
+                        </th>
+                        <th>
+                            Times
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PetReservationService) {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.ServiceDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Service.DailyRate)
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div>
+            <dl>
+                <dt>Customer Discounts:</dt>
+                <dd>Three or more dogs brought in (7%)</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div class="card-footer bg-light">
+    <p class="fs--1 mb-0">
+        <strong>Notes: </strong>I understand and agree to the terms and conditions of this contract (see
+        reverse side) and agree that Happy Valley Kennels is not liable for loss
+        or illness of my pet.
+    </p>
+</div>
+
+<div class="text-right fs--0">
+    Signature of Owner: ____________________ Date: ____________________
+
+</div>

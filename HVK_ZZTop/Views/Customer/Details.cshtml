@@ -1,0 +1,154 @@
+﻿@model HVK_ZZTop.Models.Owner
+@inject HVK_ZZTop.Models.FormattingService DisplayFormat
+
+@{
+    ViewData["Title"] = "Details";
+}
+<h3>Customer Details</h3>
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-right">
+            <div hidden class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <h5 class="card-title mb-0">Information</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+            <div class="col-sm-12">
+                <form asp-action="Edit" class="px-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div hidden class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="OwnerId" class="control-label"></label>
+                            <input asp-for="OwnerId" class="border-0" />
+                            @Html.DisplayFor(model => model.OwnerId)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            @Html.DisplayFor(model => model.FirstName)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="LastName" class="control-label"></label>
+                            @Html.DisplayFor(model => model.LastName)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Phone" class="control-label"></label>
+                            @DisplayFormat.PhoneDisplay(Model.Phone)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="CellPhone" class="control-label"></label>
+                            @DisplayFormat.PhoneDisplay(Model.CellPhone)
+                        </div>
+                    </div>
+                    <div hidden class="mb-3">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@@</span>
+                            </div>
+                            <input type="text" class="border-0" id="username" placeholder="Username" required>
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your username is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="control-label"></label>
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Street" class="control-label"></label>
+                        @Html.DisplayFor(model => model.Street)
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-3 border-0">
+                            <label for="province">Province:</label>
+                            @DisplayFormat.ProvinceFull(Model.Province)
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="City" class="control-label"></label>
+                            @Html.DisplayFor(model => model.City)
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label asp-for="PostalCode" class="control-label"></label>
+                            @DisplayFormat.PostalDisplay(Model.PostalCode)
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+
+                    <h4 class="mb-3">Emergency Contact</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmergencyContactFirstName" class="control-label">First Name</label>
+                            @Html.DisplayFor(model => model.EmergencyContactFirstName)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmergencyContactLastName" class="control-label">Last Name</label>
+                            @Html.DisplayFor(model => model.EmergencyContactLastName)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmergencyContactPhone" class="control-label">Phone</label>
+                            @DisplayFormat.PhoneDisplay(Model.EmergencyContactPhone)
+                        </div>
+
+                    </div>
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Veterinarian Contact</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Name:</label>
+                            <input asp-for="Veterinarian.Name" class="border-0" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Phone:</label>
+                            @DisplayFormat.PhoneDisplay(Model.Veterinarian?.Phone)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="province">Province:</label>
+                            @DisplayFormat.ProvinceFull(Model.Veterinarian?.Province)
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="control-label">City:</label>
+                            <input asp-for="Veterinarian.City" class="border-0" />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="control-label">Postal Code:</label>
+                            @DisplayFormat.PostalDisplay(Model.PostalCode)
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <div class="form-group">
+                        @Html.ActionLink("Edit", "Edit", new { ownerId = Model.OwnerId }, new { @class = "btn btn-primary" })
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div hidden>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,88 @@
+﻿@model HVK_ZZTop.Models.PetReservation
+@inject HVK_ZZTop.Models.FormattingService DisplayFormat
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Reservation</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Pet Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pet.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reservation.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reservation.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reservation.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reservation.EndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reservation.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @((HVK_ZZTop.Models.ReservationStatus) Convert.ToInt32(Model.Reservation.Status))
+        </dd>
+    </dl>
+    <h5>Services</h5>
+    <dl class="row">
+        @foreach (var item in Model.PetReservationService) {
+            var serv = new Service().GetService(item.ServiceId);
+            <dt class="col-sm-2">
+                @serv.ServiceDescription
+            </dt>
+        }
+    </dl>
+    <h5>Medications</h5>
+    <dl class="row">
+        @if (Model.PetReservationService.Count() > 0) {
+            @foreach (var item in Model.Medication) {
+                <dt class="col-sm-2">
+                    Name
+                </dt>
+                <dd class="col-sm-10">
+                    @item.Name
+                </dd>
+                <dt class="col-sm-2">
+                    Dosage
+                </dt>
+                <dd class="col-sm-10">
+                    @item.Dosage
+                </dd>
+                <dt class="col-sm-2">
+                    End Date
+                </dt>
+                <dd class="col-sm-10">
+                    @DisplayFormat.DateDisplay(item.EndDate)
+                </dd>
+                <dt class="col-sm-2">
+                    Special Instructions
+                </dt>
+                <dd class="col-sm-10">
+                    @item.SpecialInstruct
+                </dd>
+            }
+        } else {
+            <dd>This reservation does not have any medication associated to it</dd>
+        }
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PetReservationId }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Delete", "Delete", new { id = Model.PetReservationId }, new { @class = "btn btn-danger" })
+
+
+    <a asp-action="Index">Back to List</a>
+</div>

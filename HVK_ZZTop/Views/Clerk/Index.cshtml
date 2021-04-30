@@ -1,0 +1,193 @@
+﻿@model IEnumerable<HVK_ZZTop.Models.PetReservation>
+
+@{
+    ViewData["Title"] = "Clerk Home";
+}
+
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Checking In Today</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                Owner
+                            </th>
+                            <th>
+                                Pet
+                            </th>
+
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.Status)
+                            </th>
+
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(r => r.Reservation.StartDate == DateTime.Today).Where(r => r.Reservation.Status == 1)) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pet.Owner.FirstName) @Html.DisplayFor(modelItem => item.Pet.Owner.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pet.Name)
+                                </td>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.EndDate)
+                                </td>
+                                <td>
+                                    @((HVK_ZZTop.Models.ReservationStatus) Convert.ToInt32(item.Reservation.Status))
+                                </td>
+
+                                <td class="text-right">
+                                    @Html.ActionLink("Check In", "CheckIn", new { id = item.PetReservationId }, new { @class = "btn btn-warning btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Checking Out Today</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                Owner
+                            </th>
+                            <th>
+                                Pet
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.Status)
+                            </th>
+
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(r => r.Reservation.EndDate == DateTime.Today)) {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pet.Owner.FirstName) @Html.DisplayFor(modelItem => item.Pet.Owner.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pet.Name)
+                            </td>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.EndDate)
+                                </td>
+                                <td>
+                                    @((HVK_ZZTop.Models.ReservationStatus) Convert.ToInt32(item.Reservation.Status))
+                                </td>
+
+                                <td class="text-right">
+                                    @if (item.Reservation.Status == 3) {
+                                        @Html.ActionLink("Check Out", "CheckOut", new { id = item.PetReservationId }, new { @class = "btn btn-warning btn-sm" })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Active Reservations</h5>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="datatables-dashboard-projects" class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+                    <thead>
+                        <tr role="row">
+                            <th>
+                                Owner
+                            </th>
+                            <th>
+                                Pet
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reservation.Status)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(r => r.Reservation.Status == 3)) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pet.Owner.FirstName) @Html.DisplayFor(modelItem => item.Pet.Owner.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Pet.Name)
+                                </td>
+
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Reservation.EndDate)
+                                </td>
+                                <td class="text-right">
+                                    @((HVK_ZZTop.Models.ReservationStatus) Convert.ToInt32(item.Reservation.Status))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

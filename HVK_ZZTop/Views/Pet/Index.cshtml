@@ -1,0 +1,120 @@
+﻿@model IEnumerable<HVK_ZZTop.Models.Pet>
+
+@{
+    ViewData["Title"] = "Pet List";
+}
+
+<h3>Pet</h3>
+
+<p>
+    <a asp-action="Create">Create New Pet</a>
+</p>
+
+@foreach (var item in Model) {
+    <div class="card mb-3">
+        <div class="card-header bg-white">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5 class="card-title mb-0">@item.Name</h5>
+                </div><div class="col-auto ml-auto"><a asp-action="Edit" asp-controller="Pet" asp-route-id="@item.PetId" class="btn"><span class="fas fa-pencil-alt fs--2 mr-1"></span>Edit</a></div>
+
+            </div>
+        </div>
+        <div class="card-body bg-light border-top">
+            <div class="row">
+                <div class="col-lg col-xxl-5 position-relative">
+                    <div class="row">
+                        <h6 class="font-weight-semi-bold ls mb-3">Information</h6>
+                        <div class="col-auto ml-auto"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.Name)</p>
+                        </div>
+                        <div class="col"> @Html.DisplayFor(modelItem => item.Name)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.Breed)</p>
+                        </div>
+                        <div class="col"> @Html.DisplayFor(modelItem => item.Breed)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.DogSize)</p>
+                        </div>
+                        <div class="col">@Html.DisplayFor(modelItem => item.DogSize)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.Gender)</p>
+                        </div>
+                        <div class="col">@Html.DisplayFor(modelItem => item.Gender)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1">@Html.DisplayNameFor(modelItem => item.Birthdate)</p>
+                        </div>
+                        <div class="col"> @Html.DisplayFor(modelItem => item.Birthdate)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.Fixed)</p>
+                        </div>
+                        <div class="col">@Html.DisplayFor(modelItem => item.Fixed)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.Climber)</p>
+                        </div>
+                        <div class="col">@Html.DisplayFor(modelItem => item.Climber)</div>
+                    </div><div class="row">
+                        <div class="col-5 col-sm-4">
+                            <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => model.Barker)</p>
+                        </div>
+                        <div class="col">@Html.DisplayFor(modelItem => item.Barker)</div>
+                    </div>
+                </div>
+                <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+                    <h6 class="font-weight-semi-bold ls mb-3">Vaccination</h6>
+                    <div class="card-body table-responsive">
+                        <table class="table">
+                            <thead hidden>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        ExpiryDate
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var vac in ViewBag.Vaccinations) {
+                                    var pv = item.PetVaccination.Where(v => v.VaccinationId == vac.VaccinationId).FirstOrDefault();
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" disabled @((pv != null && pv.VaccinationChecked) ? "checked" : "" ) />
+                                        </td>
+                                        <td>
+                                            @vac.Name
+                                        </td>
+                                        <td>
+                                            @if (pv != null) {
+                                                @pv.ExpiryDate?.ToString("yyyy\\/MM\\/dd");
+                                                @if (pv.ExpiryDate < DateTime.Today) {
+                                                    <i class="bi bi-patch-exclamation text-warning" title="Vaccination has expired"></i>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

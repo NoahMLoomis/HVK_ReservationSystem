@@ -1,0 +1,41 @@
+﻿@model HVK_ZZTop.Models.PetVaccination
+
+@{
+    ViewData["Title"] = "EditVaccination";
+}
+
+<h4>Edit Pet Vaccination</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div hidden class="form-group">
+                <label asp-for="PetId" class="control-label"></label>
+                <input asp-for="PetId" class="form-control" />
+                <span asp-validation-for="PetId" class="text-danger"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="VaccinationId" class="control-label"></label>
+                <input asp-for="VaccinationId" class="form-control" />
+                <span asp-validation-for="VaccinationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vaccination.Name" class="control-label"></label>
+                <input readonly asp-for="Vaccination.Name" class="form-control" />
+                <span asp-validation-for="Vaccination.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpiryDate" class="control-label"></label>
+                <input asp-for="ExpiryDate" class="form-control" />
+                <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a>@Html.ActionLink("Go Back", "Index", "Customer")</a>
+            </div>
+        </form>
+    </div>
+</div>
+

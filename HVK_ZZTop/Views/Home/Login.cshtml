@@ -1,0 +1,62 @@
+﻿@model HVK_ZZTop.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login in";
+}
+
+<div class="container">
+    <div class="justify-content-center row">
+        <div class="col-lg-5">
+            <div class="card mt-5">
+                <div class="card-header pt-4 pb-4 text-center bg-light">
+                    <a href="/">
+                        <span>
+                            <img src="~/images/logo.png"
+                                 alt=""
+                                 height="24" />
+                        </span>
+                    </a>
+                </div>
+                <div class="p-4 position-relative card-body">
+                    <div class="text-center w-75 m-auto">
+                        <h4 class="text-dark-50 text-center mt-0 font-weight-bold">
+                            Sign In
+                        </h4>
+                        <p class="text-muted mb-4">
+                            Enter your email address/phone number and password to access customer or clerk
+                            panel.
+                        </p>
+                    </div>
+                    <form asp-controller="Home" asp-action="Login"
+                          asp-route-returnurl="@ViewData["ReturnUrl"]"
+                          method="post" class="av-valid" role="form">
+
+                            <div class="form-group">
+                                <label for="Email">Email or Phone Number</label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your email or phone number"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label><a hidden class="text-muted float-right"
+                                                                                           href="/account/forget-password"><small>Forgot your password?</small></a>
+                                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group text-center">
+                                <button class="btn btn-success">Submit</button>
+                            </div>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-1 row">
+        <div class="col-12 text-center col">
+            <p class="text-muted">
+                Don't have an account?
+                <a asp-action="Create" asp-controller="Customer" class="text-muted ml-1"><b>Register</b></a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,154 @@
+﻿@model HVK_ZZTop.Models.PetReservation
+
+@{
+    ViewData["Title"] = "Invoice";
+}
+
+<p><a asp-action="Index">Back to Home</a></p>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md">
+                <h5 class="mb-2 mb-md-0">Happy Valley Kennels</h5>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-falcon-default btn-sm mr-2 mb-2 mb-sm-0" type="button"><svg class="svg-inline--fa fa-print fa-w-16 mr-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"></path></svg><!-- <span class="fas fa-print mr-1"> </span> Font Awesome fontawesome.com -->Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="row align-items-center text-center mb-3">
+            <div class="col-sm-6 text-sm-left"><img src="~/images/logo.png" alt="invoice" width="96"></div>
+            <div class="col-sm-auto ml-auto">
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless fs--1">
+                        <tbody>
+                            <tr>
+                                <th class="text-sm-right">Date:</th>
+                                <td> @DateTime.Now.ToString("yyyy\\/MM\\/dd")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Happy Valley Kennels</h5>
+                <p>123 Chemin Scott</p>
+                <p>Chelsea, QC J9B 1R6</p>
+                <p>(819) 123-4567</p>
+                <p>info@happyvalleykennel.ca</p>
+            </div>
+            <div class="col-md-7"><h2 class="text-primary text-center">TO:</h2></div>
+            <div class="col-md-2">
+                <h5>@Html.DisplayFor(model => model.Pet.Owner.FirstName) @Html.DisplayFor(model => model.Pet.Owner.LastName)</h5>
+                <p>@Html.DisplayFor(model => model.Pet.Owner.Street), @Html.DisplayFor(model => model.Pet.Owner.City)</p>
+                <p>@Model.Pet.Owner.Phone</p>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Reservation Start</th>
+                        <th>Reservation End</th>
+                        <th>Number of Days</th>
+                        <th>Payment Terms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayFor(model => model.Reservation.StartDate)</td>
+                        <td>@Html.DisplayFor(model => model.Reservation.EndDate)</td>
+                        <td>@Html.DisplayFor(model => (model.Reservation.EndDate - model.Reservation.StartDate).Days)</td>
+                        <td>Due on receipt</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Description</th>
+                        <th>Daily Rate</th>
+                        <th>Number Of Days</th>
+                        <th class="align-middle text-right">Item Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var petResService in Model.PetReservationService) {
+                        <tr>
+                            <td>@petResService.Service.ServiceDescription</td>
+                            <td>@petResService.Service.DailyRate.First().Rate</td>
+                            <td>@Html.DisplayFor(model => (model.Reservation.EndDate - model.Reservation.StartDate).Days)</td>
+                            <td class="align-middle text-right">
+                                @{
+                                    var total = petResService.Service.DailyRate.First().Rate * (Model.Reservation.EndDate - Model.Reservation.StartDate).Days;
+                                    ViewData["total"] = total;
+                                    ViewData["SubTotal"] = Convert.ToDecimal(ViewData["SubTotal"]) + total;
+                                }
+                                $@Math.Round(total, 2)
+                            </td>
+                        </tr>
+                    }
+
+                    @foreach (var petResDiscount in Model.PetReservationDiscount) {
+                        <tr>
+                            <td>@petResDiscount.Discount.Desciption</td>
+                            <td>@petResDiscount.Discount.Percentage</td>
+                            <td>@Html.DisplayFor(model => (model.Reservation.EndDate - model.Reservation.StartDate).Days)</td>
+                            <td class="align-middle text-right">
+                                @{
+                                    var totalDiscounted = (petResDiscount.Discount.Percentage / 100) * Convert.ToDecimal(ViewData["Total"]);
+
+                                    ViewData["TotalDiscount"] = Convert.ToDecimal(ViewData["TotalDiscount"]) + totalDiscounted;
+
+                                }
+                                $@Math.Round(totalDiscounted, 2)
+                            </td>
+                        </tr>
+                    }
+
+                    @{
+                        ViewData["HST"] = Convert.ToDecimal(ViewData["SubTotal"]) * Convert.ToDecimal(0.15);
+
+                        ViewData["GrandTotal"] = Convert.ToDecimal(ViewData["SubTotal"]) - Convert.ToDecimal(ViewData["TotalDiscount"]) + Convert.ToDecimal(ViewData["HST"]);
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="row no-gutters justify-content-end">
+            <div class="col-auto">
+                <table class="table table-sm table-borderless fs--1 text-right">
+                    <tbody>
+                        <tr>
+                            <th class="text-900">Subtotal</th>
+                            <td class="font-weight-semi-bold">$@Math.Round(Convert.ToDecimal(ViewData["SubTotal"]), 2)</td>
+                        </tr>
+                        <tr>
+                            <th class="text-900">Subtotal after discount</th>
+                            <td class="font-weight-semi-bold">$@Math.Round(Convert.ToDecimal(ViewData["TotalAfterDiscount"]), 2)</td>
+                        </tr>
+                        <tr class="border-top">
+                            <th class="text-900">HST</th>
+                            <td class="font-weight-semi-bold">$@Math.Round(Convert.ToDecimal(ViewData["HST"]), 2)</td>
+                        </tr>
+                        <tr class="border-top border-2x font-weight-bold text-900">
+                            <th>Total</th>
+                            <td class="font-weight-semi-bold">$@Math.Round(Convert.ToDecimal(ViewData["GrandTotal"]), 2)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model HVK_ZZTop.Models.Owner
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto mt-5 text-center">
+        <form asp-action="Delete" method="post" role="form">
+            @if (ViewBag.DeleteDenied != null && ViewBag.DeleteDenied) {
+                <h1>Can not delete this customer "@Model.FirstName @Model.LastName" who has an active reservation.?</h1>
+                <a asp-action="List" class="btn btn-danger">Back to List</a>
+
+            } else {
+                <h1>Are you sure you want to delete this customer "@Model.FirstName @Model.LastName"?</h1>
+                <button class="btn btn-success">Delete</button>
+                <a asp-action="List" class="btn btn-danger">Cancel</a>
+            }
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,338 @@
+﻿@model HVK_ZZTop.Models.CustomerSearchViewModel
+@inject HVK_ZZTop.Models.FormattingService DisplayFormat
+
+@{
+    ViewData["Title"] = "Customer's Details";
+}
+<h3>Customer's Details</h3>
+<div class="card flex-fill">
+    <div class="card-header">
+        <div class="card-actions float-right">
+            <div hidden class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <h4 class="mb-3">Personal Information</h4>
+    </div>
+    <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row">
+            <div class="col-sm-12">
+                <form asp-action="Edit" class="px-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div hidden class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.OwnerId" class="control-label"></label>
+                            <input asp-for="Owner.OwnerId" class="border-0" />
+                            @Html.DisplayFor(model => model.Owner.OwnerId)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.FirstName" class="control-label"></label>
+                            @Html.DisplayFor(model => model.Owner.FirstName)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.LastName" class="control-label"></label>
+                            @Html.DisplayFor(model => model.Owner.LastName)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.Phone" class="control-label"></label>
+                            @DisplayFormat.PhoneDisplay(Model.Owner.Phone)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.CellPhone" class="control-label"></label>
+                            @DisplayFormat.PhoneDisplay(Model.Owner.CellPhone)
+                        </div>
+                    </div>
+                    <div hidden class="mb-3">
+                        <label for="username">Username</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@@</span>
+                            </div>
+                            <input type="text" class="border-0" id="username" placeholder="Username" required>
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your username is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Owner.Email" class="control-label"></label>
+                        @Html.DisplayFor(model => model.Owner.Email)
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Owner.Street" class="control-label"></label>
+                        @Html.DisplayFor(model => model.Owner.Street)
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-3 border-0">
+                            <label for="province">Province:</label>
+                            @DisplayFormat.ProvinceFull(Model.Owner.Province)
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="Owner.City" class="control-label"></label>
+                            @Html.DisplayFor(model => model.Owner.City)
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label asp-for="Owner.PostalCode" class="control-label"></label>
+                            @DisplayFormat.PostalDisplay(Model.Owner.PostalCode)
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+
+                    <h4 class="mb-3">Emergency Contact</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.EmergencyContactFirstName" class="control-label">First Name</label>
+                            @Html.DisplayFor(model => model.Owner.EmergencyContactFirstName)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.EmergencyContactLastName" class="control-label">Last Name</label>
+                            @Html.DisplayFor(model => model.Owner.EmergencyContactLastName)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Owner.EmergencyContactPhone" class="control-label">Phone</label>
+                            @DisplayFormat.PhoneDisplay(Model.Owner.EmergencyContactPhone)
+                        </div>
+
+                    </div>
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Veterinarian Contact</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Name:</label>
+                            @Html.DisplayFor(model => model.Owner.Veterinarian.Name)
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="control-label">Phone:</label>
+                            @DisplayFormat.PhoneDisplay(Model.Owner.Veterinarian?.Phone)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="province">Province:</label>
+                            @DisplayFormat.ProvinceFull(Model.Owner.Veterinarian?.Province)
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="control-label">City:</label>
+                            @Html.DisplayFor(model => model.Owner.Veterinarian.City)
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="control-label">Postal Code:</label>
+                            @DisplayFormat.PostalDisplay(Model.Owner.PostalCode)
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Pet Details</h3>
+
+@if (Model.Pets.Count > 0) {
+
+    @foreach (var item in Model.Pets) {
+        <div class="card mb-3">
+            <div class="card-header bg-white">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="card-title mb-0">@item.Name</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body bg-light border-top">
+                <div class="row">
+                    <div class="col-lg col-xxl-5 position-relative">
+                        <div class="row">
+                            <h6 class="font-weight-semi-bold ls mb-3">Information</h6>
+                            <div class="col-auto ml-auto"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.Name)</p>
+                            </div>
+                            <div class="col"> @Html.DisplayFor(modelItem => item.Name)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.Breed)</p>
+                            </div>
+                            <div class="col"> @Html.DisplayFor(modelItem => item.Breed)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.DogSize)</p>
+                            </div>
+                            <div class="col">@Html.DisplayFor(modelItem => item.DogSize)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.Gender)</p>
+                            </div>
+                            <div class="col">@Html.DisplayFor(modelItem => item.Gender)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1">@Html.DisplayNameFor(modelItem => item.Birthdate)</p>
+                            </div>
+                            <div class="col"> @Html.DisplayFor(modelItem => item.Birthdate)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.Fixed)</p>
+                            </div>
+                            <div class="col">@Html.DisplayFor(modelItem => item.Fixed)</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.Climber)</p>
+                            </div>
+                            <div class="col">@Html.DisplayFor(modelItem => item.Climber)</div>
+                        </div><div class="row">
+                            <div class="col-5 col-sm-4">
+                                <p class="font-weight-semi-bold mb-1"> @Html.DisplayNameFor(model => item.Barker)</p>
+                            </div>
+                            <div class="col">@Html.DisplayFor(modelItem => item.Barker)</div>
+                        </div>
+                    </div>
+                    <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+                        <h6 class="font-weight-semi-bold ls mb-3">Vaccination</h6>
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <thead hidden>
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            ExpiryDate
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var vac in ViewBag.Vaccinations) {
+                                        var pv = item.PetVaccination.Where(v => v.VaccinationId == vac.VaccinationId).FirstOrDefault();
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" disabled @((pv != null && pv.VaccinationChecked) ? "checked" : "" ) />
+                                            </td>
+                                            <td>
+                                                @vac.Name
+                                            </td>
+                                            <td>
+                                                @if (pv != null) {
+                                                    @pv.ExpiryDate?.ToString("yyyy\\/MM\\/dd");
+                                                    @if (pv.ExpiryDate < DateTime.Today) {
+                                                        <i class="bi bi-patch-exclamation text-warning" title="Vaccination has expired"></i>
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+} else {
+    <p>This Owner currently has no pets linked to their account</p>
+}
+
+<h4 class="mb-3">Reservation Information</h4>
+
+@if (Model.PetReservations.Count > 0) {
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <div hidden class="card-actions float-right">
+            </div>
+            <div class="card-actions float-right">
+                <a hidden asp-action="Create" asp-controller="Reservation" class="btn btn-sm btn-link pr-0 fs--1">New Reservation</a>
+            </div>
+            <h5 class="card-title mb-0">Reservations</h5>
+        </div>
+        <div id="datatables-dashboard-projects_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped my-0 dataTable no-footer" role="grid" aria-describedby="datatables-dashboard-projects_info">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    Pet Name
+                                </th>
+                                <th>
+                                    Start Date
+                                </th>
+                                <th>
+                                    End Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.PetReservations) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Pet.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reservation.StartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reservation.EndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Reservation.Status)
+                                    </td>
+                                    <td>
+                                        <div class="dropdown show">
+                                            <a href="#" data-toggle="dropdown" data-display="static">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.PetReservationId">Edit</a>
+                                                <a class="dropdown-item" asp-action="Details" asp-route-id="@item.PetReservationId">Details</a>
+                                                <a class="dropdown-item" asp-action="Delete" asp-route-id="@item.PetReservationId">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+} else {
+    <p>This Owner currently has no reservations</p>
+}
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+

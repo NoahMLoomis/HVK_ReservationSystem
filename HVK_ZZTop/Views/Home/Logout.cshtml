@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Signed out";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <div class="col-md-8 mx-auto mt-5 text-center">
+        <form asp-controller="Home" asp-action="Logout" method="post" role="form">
+            <h1>Are you sure you want to log out?</h1>
+            <button class="btn btn-success">Log out</button>
+            <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+        </form>
+    </div>
+</div>

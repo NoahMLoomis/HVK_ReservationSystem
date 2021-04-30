@@ -1,0 +1,162 @@
+﻿@model HVK_ZZTop.Models.Pet
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h5>Edit Pet</h5>
+<hr />
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-lg col-xxl-5 position-relative">
+            <h6 class="font-weight-semi-bold ls mb-3">Information</h6>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div hidden class="form-group row">
+                <label asp-for="PetId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input readonly asp-for="PetId" class="form-control" />
+                </div>
+                <span asp-validation-for="PetId" class="text-danger col-sm-5"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <span asp-validation-for="Name" class="text-danger col-sm-8"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Gender" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <select asp-for="Gender" class="form-control">
+                        <option value="0">Select Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <span asp-validation-for="Gender" class="text-danger col-sm-8"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Breed" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Breed" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <span asp-validation-for="Breed" class="text-danger col-sm-8"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Birthdate" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Birthdate" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <span asp-validation-for="Birthdate" class="text-danger col-sm-8"></span>
+            </div>
+            <div hidden class="form-group row">
+                <label asp-for="OwnerId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="OwnerId" class="form-control" />
+                </div>
+                <span asp-validation-for="OwnerId" class="text-danger"></span>
+            </div>
+            <div class="form-group row vertical-align">
+                <label asp-for="DogSize" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <select asp-for="DogSize" class="form-control">
+                        <option value="">Please select pet size</option>
+                        <option value="L">Large</option>
+                        <option value="M">Medium</option>
+                        <option value="S">Small</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <span asp-validation-for="DogSize" class="text-danger col-sm-8"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Fixed" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Fixed" class="align-middle" />
+                </div>
+                <span asp-validation-for="Fixed" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Climber" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Climber" class="align-middle" />
+                </div>
+                <span asp-validation-for="Climber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Barker" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-8">
+                    <input asp-for="Barker" class="align-middle" />
+                </div>
+                <span asp-validation-for="Barker" class="text-danger"></span>
+            </div>
+
+
+        </div>
+
+        <div class="col-lg col-xxl-5 mt-4 mt-lg-0 offset-xxl-1">
+            <div class="table-responsive">
+                <h6 class="font-weight-semi-bold ls mb-3">Vaccination</h6>
+                <table class="table">
+                    <thead hidden>
+                        <tr>
+                            <th></th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                ExpiryDate
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var vac in ViewBag.Vaccinations) {
+                            var pv = Model.PetVaccination.Where(v => v.VaccinationId == vac.VaccinationId).FirstOrDefault();
+                            <tr>
+                                <td>
+                                    <input @(HttpContextAccessor.HttpContext.User.IsInRole("Clerk") ? "" : "disabled") type="checkbox" @((pv != null && pv.VaccinationChecked) ? "checked" : "" ) name="VaccinationChecked" value="@vac.VaccinationId" />
+
+                                </td>
+                                <td>
+                                    @vac.Name
+                                </td>
+                                <td>
+                                    <input type="date" name="Vaccination:@vac.VaccinationId" value="@if (pv != null) {
+                                        @pv.ExpiryDate?.ToString("yyyy-MM-dd");
+                                    }" />
+                                    @if (pv != null && pv.ExpiryDate != null && pv.ExpiryDate < DateTime.Today) {
+                                        <i class="bi bi-patch-exclamation text-warning" title="Vaccination has expired"></i>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+<div hidden>
+    <a asp-action="Index">Back to List</a>
+</div>
+

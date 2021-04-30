@@ -1,0 +1,18 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@{ 
+    //string path = (helper.ViewDataContainer as WebPageBase).VirtualPath;
+    var controller = HttpContextAccessor.HttpContext.Request.RouteValues["controller"].ToString();
+
+    if (controller == "Home") {
+        Layout = "~/Views/Shared/_Portal.cshtml";
+    }else if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated) {
+        if (this.User.IsInRole("Clerk")) {
+            Layout = "~/Views/Shared/_Clerk.cshtml";
+        } else if (this.User.IsInRole("Customer")) {
+            Layout = "~/Views/Shared/_Customer.cshtml";
+        }
+
+    } else {
+        Layout = "~/Views/Shared/_Portal.cshtml";
+    }
+}
